@@ -1,11 +1,11 @@
 A3 - Gerenciamento de Estoque  
 ---
 Integrantes:
-* Adrian Hermes de Souza - RA: 10725118583
-* Kauan Junior Brum Padilha - RA: 1072518958
-* João Gabriel Weber dos Santos Verona - RA: 10724265816
-* Paulo André Tavares - RA: 10724261182
-* Eduardo Bez Batti Tosin - RA: 10724270619
+* Adrian Hermes de Souza - RA: 10725118583 - USER GIT: Adrianhermes
+* Kauan Junior Brum Padilha - RA: 1072518958 - USER GIT: Kauanjr2
+* João Gabriel Weber dos Santos Verona - RA: 10724265816 - USER GIT: 1Verona
+* Paulo André Tavares - RA: 10724261182 - USER GIT: PauloAndre137
+* Eduardo Bez Batti Tosin - RA: 10724270619 - USER GIT: EduardoBezBatti
 
 ---
 ### Versões
