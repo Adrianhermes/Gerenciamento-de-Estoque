@@ -15,50 +15,124 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panel1 = new java.awt.Panel();
+        panel2 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuCategoria = new javax.swing.JMenu();
+        jMenuCadastroDeCategoria = new javax.swing.JMenuItem();
+        jMenuProdutos = new javax.swing.JMenu();
+        jMenuCadastroDeProdutos = new javax.swing.JMenuItem();
+        jMenuEstoque = new javax.swing.JMenu();
+        jMenuEntradaEstoque = new javax.swing.JMenuItem();
+        jMenuSaidaEstoque = new javax.swing.JMenuItem();
+        jMenuRelatorios = new javax.swing.JMenu();
+        jMenuListaDePrecos = new javax.swing.JMenuItem();
+        jMenuRelatorioEstoqueMinimo = new javax.swing.JMenuItem();
+        jMenuRelatorioEstoqueMaximo = new javax.swing.JMenuItem();
+        jMenuBalancoFisicoFinanceiro = new javax.swing.JMenuItem();
+        jMenuRelatorioPorCategoria = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        panel2.setBackground(new java.awt.Color(153, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft PhagsPa", 1, 40)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gerenciamento de Estoque");
         jLabel1.setToolTipText("");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
+        javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
+        panel2.setLayout(panel2Layout);
+        panel2Layout.setHorizontalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                .addContainerGap(89, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
+        );
+        panel2Layout.setVerticalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jLabel1)
+                .addContainerGap(172, Short.MAX_VALUE))
+        );
+
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jMenu1.setText("Categoria");
+        jMenuCategoria.setText("Categoria");
 
-        jMenuItem1.setText("Cadastro de Categoria");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCadastroDeCategoria.setText("Cadastro de Categoria");
+        jMenuCadastroDeCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuCadastroDeCategoriaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuCategoria.add(jMenuCadastroDeCategoria);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuCategoria);
 
-        jMenu2.setText("Produtos");
+        jMenuProdutos.setText("Produtos");
 
-        jMenuItem2.setText("Cadastro de Produtos");
-        jMenu2.add(jMenuItem2);
+        jMenuCadastroDeProdutos.setText("Cadastro de Produtos");
+        jMenuProdutos.add(jMenuCadastroDeProdutos);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuProdutos);
 
-        jMenu3.setText("Estoque");
-        jMenuBar1.add(jMenu3);
+        jMenuEstoque.setText("Estoque");
 
-        jMenu4.setText("Relatórios");
-        jMenuBar1.add(jMenu4);
+        jMenuEntradaEstoque.setText("Entrada");
+        jMenuEstoque.add(jMenuEntradaEstoque);
+
+        jMenuSaidaEstoque.setText("Saida");
+        jMenuEstoque.add(jMenuSaidaEstoque);
+
+        jMenuBar1.add(jMenuEstoque);
+
+        jMenuRelatorios.setText("Relatórios");
+
+        jMenuListaDePrecos.setText("Lista de Preços");
+        jMenuRelatorios.add(jMenuListaDePrecos);
+
+        jMenuRelatorioEstoqueMinimo.setText("Relatório de Estoque Mínimo");
+        jMenuRelatorioEstoqueMinimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRelatorioEstoqueMinimoActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jMenuRelatorioEstoqueMinimo);
+
+        jMenuRelatorioEstoqueMaximo.setText("Relatório de Estoque Máximo");
+        jMenuRelatorios.add(jMenuRelatorioEstoqueMaximo);
+
+        jMenuBalancoFisicoFinanceiro.setText("Balanço Físico e Financeiro");
+        jMenuBalancoFisicoFinanceiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuBalancoFisicoFinanceiroActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jMenuBalancoFisicoFinanceiro);
+
+        jMenuRelatorioPorCategoria.setText("Relatório por Categoria");
+        jMenuRelatorios.add(jMenuRelatorioPorCategoria);
+
+        jMenuBar1.add(jMenuRelatorios);
 
         setJMenuBar(jMenuBar1);
 
@@ -67,24 +141,30 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(134, 134, 134))
+                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(47, 47, 47))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuCadastroDeCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuCadastroDeCategoriaActionPerformed
+
+    private void jMenuRelatorioEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioEstoqueMinimoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuRelatorioEstoqueMinimoActionPerformed
+
+    private void jMenuBalancoFisicoFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBalancoFisicoFinanceiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuBalancoFisicoFinanceiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,12 +203,21 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuItem jMenuBalancoFisicoFinanceiro;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuCadastroDeCategoria;
+    private javax.swing.JMenuItem jMenuCadastroDeProdutos;
+    private javax.swing.JMenu jMenuCategoria;
+    private javax.swing.JMenuItem jMenuEntradaEstoque;
+    private javax.swing.JMenu jMenuEstoque;
+    private javax.swing.JMenuItem jMenuListaDePrecos;
+    private javax.swing.JMenu jMenuProdutos;
+    private javax.swing.JMenuItem jMenuRelatorioEstoqueMaximo;
+    private javax.swing.JMenuItem jMenuRelatorioEstoqueMinimo;
+    private javax.swing.JMenuItem jMenuRelatorioPorCategoria;
+    private javax.swing.JMenu jMenuRelatorios;
+    private javax.swing.JMenuItem jMenuSaidaEstoque;
+    private java.awt.Panel panel1;
+    private java.awt.Panel panel2;
     // End of variables declaration//GEN-END:variables
 }
