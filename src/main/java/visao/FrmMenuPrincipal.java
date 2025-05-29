@@ -91,6 +91,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuProdutos.setText("Produtos");
 
         jMenuCadastroDeProdutos.setText("Cadastro de Produtos");
+        jMenuCadastroDeProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCadastroDeProdutosActionPerformed(evt);
+            }
+        });
         jMenuProdutos.add(jMenuCadastroDeProdutos);
 
         jMenuBar1.add(jMenuProdutos);
@@ -165,6 +170,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void jMenuBalancoFisicoFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBalancoFisicoFinanceiroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuBalancoFisicoFinanceiroActionPerformed
+
+    private void jMenuCadastroDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeProdutosActionPerformed
+        // TODO add your handling code here:
+        FrmTelaDeProduto objeto = new FrmTelaDeProduto ();
+       
+    }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
     /**
      * @param args the command line arguments
