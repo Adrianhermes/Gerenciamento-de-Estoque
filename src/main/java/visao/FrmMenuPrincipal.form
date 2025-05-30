@@ -26,7 +26,7 @@
         </Property>
       </Properties>
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenuCategoria">
+        <Menu class="javax.swing.JMenu" name="JGerenciarCategoria">
           <Properties>
             <Property name="text" type="java.lang.String" value="Categoria"/>
           </Properties>

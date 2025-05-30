@@ -19,7 +19,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         panel2 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuCategoria = new javax.swing.JMenu();
+        JGerenciarCategoria = new javax.swing.JMenu();
         jMenuCadastroDeCategoria = new javax.swing.JMenuItem();
         jMenuProdutos = new javax.swing.JMenu();
         jMenuCadastroDeProdutos = new javax.swing.JMenuItem();
@@ -76,7 +76,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jMenuCategoria.setText("Categoria");
+        JGerenciarCategoria.setText("Categoria");
 
         jMenuCadastroDeCategoria.setText("Cadastro de Categoria");
         jMenuCadastroDeCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -84,9 +84,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 jMenuCadastroDeCategoriaActionPerformed(evt);
             }
         });
-        jMenuCategoria.add(jMenuCadastroDeCategoria);
+        JGerenciarCategoria.add(jMenuCadastroDeCategoria);
 
-        jMenuBar1.add(jMenuCategoria);
+        jMenuBar1.add(JGerenciarCategoria);
 
         jMenuProdutos.setText("Produtos");
 
@@ -161,6 +161,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuCadastroDeCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeCategoriaActionPerformed
         // TODO add your handling code here:
+        FrmCadastroDeCategoria objeto = new FrmCadastroDeCategoria();
+        objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeCategoriaActionPerformed
 
     private void jMenuRelatorioEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioEstoqueMinimoActionPerformed
@@ -173,8 +175,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuCadastroDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeProdutosActionPerformed
         // TODO add your handling code here:
-        FrmTelaDeProduto objeto = new FrmTelaDeProduto ();
-       
+        FrmCadastroDeProdutos objeto = new FrmCadastroDeProdutos();
+        objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
     /**
@@ -213,12 +215,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu JGerenciarCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuBalancoFisicoFinanceiro;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCadastroDeCategoria;
     private javax.swing.JMenuItem jMenuCadastroDeProdutos;
-    private javax.swing.JMenu jMenuCategoria;
     private javax.swing.JMenuItem jMenuEntradaEstoque;
     private javax.swing.JMenu jMenuEstoque;
     private javax.swing.JMenuItem jMenuListaDePrecos;
