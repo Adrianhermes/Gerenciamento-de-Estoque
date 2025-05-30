@@ -25,7 +25,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuCadastroDeProdutos = new javax.swing.JMenuItem();
         jMenuEstoque = new javax.swing.JMenu();
         jMenuEntradaEstoque = new javax.swing.JMenuItem();
-        jMenuSaidaEstoque = new javax.swing.JMenuItem();
         jMenuRelatorios = new javax.swing.JMenu();
         jMenuListaDePrecos = new javax.swing.JMenuItem();
         jMenuRelatorioEstoqueMinimo = new javax.swing.JMenuItem();
@@ -102,11 +101,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuEstoque.setText("Estoque");
 
-        jMenuEntradaEstoque.setText("Entrada");
+        jMenuEntradaEstoque.setText("Gerenciador");
+        jMenuEntradaEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEntradaEstoqueActionPerformed(evt);
+            }
+        });
         jMenuEstoque.add(jMenuEntradaEstoque);
-
-        jMenuSaidaEstoque.setText("Saida");
-        jMenuEstoque.add(jMenuSaidaEstoque);
 
         jMenuBar1.add(jMenuEstoque);
 
@@ -179,6 +180,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
+    private void jMenuEntradaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {
+        FrmGerenciadorEstoque gerenciador = new FrmGerenciadorEstoque();
+        gerenciador.setVisible(true);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -229,7 +235,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuRelatorioEstoqueMinimo;
     private javax.swing.JMenuItem jMenuRelatorioPorCategoria;
     private javax.swing.JMenu jMenuRelatorios;
-    private javax.swing.JMenuItem jMenuSaidaEstoque;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     // End of variables declaration//GEN-END:variables

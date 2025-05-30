@@ -63,12 +63,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuEntradaEstoque">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Entrada"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuSaidaEstoque">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Saida"/>
+                <Property name="text" type="java.lang.String" value="Gerenciador"/>
               </Properties>
             </MenuItem>
           </SubComponents>
