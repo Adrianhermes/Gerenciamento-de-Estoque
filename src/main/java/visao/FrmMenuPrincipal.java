@@ -102,6 +102,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuEstoque.setText("Estoque");
 
         jMenuEntradaEstoque.setText("Gerenciador");
+        jMenuEntradaEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEntradaEstoqueActionPerformed(evt);
+            }
+        });
         jMenuEstoque.add(jMenuEntradaEstoque);
 
         jMenuBar1.add(jMenuEstoque);
@@ -172,6 +177,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmTelaDeProduto objeto = new FrmTelaDeProduto ();
        
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
+
+    private void jMenuEntradaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {
+        FrmGerenciadorEstoque gerenciador = new FrmGerenciadorEstoque();
+        gerenciador.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments
