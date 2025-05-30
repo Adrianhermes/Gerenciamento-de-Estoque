@@ -4,6 +4,13 @@
  */
 package visao;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Adrian
@@ -15,6 +22,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
      */
     public FrmGerenciadorEstoque() {
         initComponents();
+        configurarPlaceholders();
     }
 
     /**
@@ -33,6 +41,8 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         jTProduto = new javax.swing.JTextField();
         jTQuantidade = new javax.swing.JTextField();
         jTDataValidade = new javax.swing.JTextField();
+        jButtonRegistrarEntrada = new javax.swing.JButton();
+        jButtonRegistrarSaida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +69,44 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
 
         jTDataValidade.setText("Data de Validade");
 
+        jButtonRegistrarEntrada.setText("Registrar Entrada");
+        jButtonRegistrarSaida.setText("Registrar Saída");
+
+        jButtonRegistrarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarEntradaActionPerformed(evt);
+            }
+        });
+        jButtonRegistrarSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarSaidaActionPerformed(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int selectedRow = jTable1.getSelectedRow();
+                if (selectedRow != -1) {
+                    Object produto = jTable1.getValueAt(selectedRow, 0);
+                    Object quantidade = jTable1.getValueAt(selectedRow, 1);
+                    Object validade = jTable1.getValueAt(selectedRow, 2);
+                    jTProduto.setText(produto != null ? produto.toString() : "");
+                    jTQuantidade.setText(quantidade != null ? quantidade.toString() : "");
+                    jTDataValidade.setText(validade != null ? validade.toString() : "");
+                }
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,6 +116,8 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonRegistrarEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonRegistrarSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTProduto)
                     .addComponent(jTQuantidade)
                     .addComponent(jTDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
@@ -88,7 +138,11 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 .addComponent(jTQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonRegistrarEntrada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonRegistrarSaida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -142,5 +196,189 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
     private javax.swing.JTextField jTProduto;
     private javax.swing.JTextField jTQuantidade;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jButtonRegistrarEntrada;
+    private javax.swing.JButton jButtonRegistrarSaida;
     // End of variables declaration//GEN-END:variables
+
+    private void configurarPlaceholders() {
+        // Produto
+        String placeholderProduto = "Produto";
+        jTProduto.setText(placeholderProduto);
+        jTProduto.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (jTProduto.getText().equals(placeholderProduto)) {
+                    jTProduto.setText("");
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (jTProduto.getText().isEmpty()) {
+                    jTProduto.setText(placeholderProduto);
+                }
+            }
+        });
+        // Quantidade
+        String placeholderQuantidade = "Quantidade";
+        jTQuantidade.setText(placeholderQuantidade);
+        jTQuantidade.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (jTQuantidade.getText().equals(placeholderQuantidade)) {
+                    jTQuantidade.setText("");
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (jTQuantidade.getText().isEmpty()) {
+                    jTQuantidade.setText(placeholderQuantidade);
+                }
+            }
+        });
+        // Data de Validade
+        String placeholderValidade = "Data de Validade (dd/MM/yyyy)";
+        jTDataValidade.setText(placeholderValidade);
+        jTDataValidade.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (jTDataValidade.getText().equals(placeholderValidade)) {
+                    jTDataValidade.setText("");
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (jTDataValidade.getText().isEmpty()) {
+                    jTDataValidade.setText(placeholderValidade);
+                }
+            }
+        });
+    }
+
+    private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String produto = jTProduto.getText();
+        String quantidadeStr = jTQuantidade.getText();
+        String validade = jTDataValidade.getText();
+        if (produto.isEmpty() || produto.equals("Produto") || quantidadeStr.isEmpty() || quantidadeStr.equals("Quantidade")) {
+            JOptionPane.showMessageDialog(this, "Preencha o produto e a quantidade.");
+            return;
+        }
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(quantidadeStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número inteiro.");
+            return;
+        }
+        // Validação da data
+        if (validade.isEmpty() || validade.equals("Data de Validade (dd/MM/yyyy)")) {
+            JOptionPane.showMessageDialog(this, "Preencha a data de validade.");
+            return;
+        }
+        if (!isDataValida(validade)) {
+            JOptionPane.showMessageDialog(this, "Data de validade inválida. Use o formato dd/MM/yyyy.");
+            return;
+        }
+        boolean encontrado = false;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (produto.equals(model.getValueAt(i, 0))) {
+                int qtdAtual = Integer.parseInt(model.getValueAt(i, 1).toString());
+                model.setValueAt(qtdAtual + quantidade, i, 1);
+                model.setValueAt(validade, i, 2);
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            model.insertRow(0, new Object[]{produto, quantidade, validade});
+        }
+        JOptionPane.showMessageDialog(this, "Entrada registrada com sucesso!");
+    }
+
+    private void btnRegistrarSaidaActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item na tabela para registrar a saída.");
+            return;
+        }
+        String input = JOptionPane.showInputDialog(this, "Qual a quantidade de saída?");
+        if (input == null) return; // Usuário cancelou
+        input = input.trim();
+        if (input.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a quantidade de saída.");
+            return;
+        }
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número inteiro.");
+            return;
+        }
+        int qtdAtual = Integer.parseInt(model.getValueAt(selectedRow, 1).toString());
+        if (quantidade <= 0) {
+            JOptionPane.showMessageDialog(this, "A quantidade deve ser maior que zero.");
+            return;
+        }
+        if (qtdAtual - quantidade < 0) {
+            JOptionPane.showMessageDialog(this, "Saldo insuficiente para saída!");
+            return;
+        }
+        model.setValueAt(qtdAtual - quantidade, selectedRow, 1);
+        JOptionPane.showMessageDialog(this, "Saída registrada com sucesso!");
+    }
+
+    private boolean isDataValida(String data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(data);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Editar
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item para editar.");
+            return;
+        }
+        String produto = jTProduto.getText();
+        String quantidadeStr = jTQuantidade.getText();
+        String validade = jTDataValidade.getText();
+        if (produto.isEmpty() || produto.equals("Produto") || quantidadeStr.isEmpty() || quantidadeStr.equals("Quantidade")) {
+            JOptionPane.showMessageDialog(this, "Preencha o produto e a quantidade.");
+            return;
+        }
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(quantidadeStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número inteiro.");
+            return;
+        }
+        if (validade.isEmpty() || validade.equals("Data de Validade (dd/MM/yyyy)")) {
+            JOptionPane.showMessageDialog(this, "Preencha a data de validade.");
+            return;
+        }
+        if (!isDataValida(validade)) {
+            JOptionPane.showMessageDialog(this, "Data de validade inválida. Use o formato dd/MM/yyyy.");
+            return;
+        }
+        model.setValueAt(produto, selectedRow, 0);
+        model.setValueAt(quantidade, selectedRow, 1);
+        model.setValueAt(validade, selectedRow, 2);
+        JOptionPane.showMessageDialog(this, "Item editado com sucesso!");
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Remover
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item para remover.");
+            return;
+        }
+        model.removeRow(selectedRow);
+        JOptionPane.showMessageDialog(this, "Item removido com sucesso!");
+    }
 }
