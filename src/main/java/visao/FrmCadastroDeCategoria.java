@@ -2,14 +2,42 @@ package visao;
 
 import javax.swing.JOptionPane;
 import modelo.Categoria;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmCadastroDeCategoria
      */
+    private DefaultTableModel tableModel;
+    private int selectedRow = -1;
+
     public FrmCadastroDeCategoria() {
         initComponents();
+        tableModel = new DefaultTableModel(
+                new Object[]{"Categoria", "Tamanho", "Embalagem"}, 0
+        );
+        jTable1.setModel(tableModel);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+// Evento para preencher os campos ao selecionar uma linha
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    selectedRow = jTable1.getSelectedRow();
+                    if (selectedRow != -1) {
+                        JTFCategoria.setText(tableModel.getValueAt(selectedRow, 0).toString());
+                        JTFTamanho.setSelectedItem(tableModel.getValueAt(selectedRow, 1).toString());
+                        JTFEmbalagem.setText(tableModel.getValueAt(selectedRow, 2).toString());
+                    }
+                }
+            }
+        });
+
     }
 
     /**
@@ -26,12 +54,15 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCancelar = new javax.swing.JButton();
+        jRemover = new javax.swing.JButton();
         jCadastrar = new javax.swing.JButton();
         jFechar = new javax.swing.JButton();
         JTFEmbalagem = new javax.swing.JTextField();
         JTFTamanho = new javax.swing.JComboBox<>();
         JTFCategoria = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jEditar = new javax.swing.JButton();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -40,6 +71,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -53,11 +85,11 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Embalagem:");
 
-        jCancelar.setText("Cancelar");
-        jCancelar.setPreferredSize(new java.awt.Dimension(70, 35));
-        jCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jRemover.setText("Remover");
+        jRemover.setPreferredSize(new java.awt.Dimension(70, 35));
+        jRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCancelarActionPerformed(evt);
+                jRemoverActionPerformed(evt);
             }
         });
 
@@ -82,6 +114,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
         JTFTamanho.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         JTFTamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeno", "Medio", "Grande" }));
+        JTFTamanho.setAutoscrolls(true);
         JTFTamanho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFTamanhoActionPerformed(evt);
@@ -89,31 +122,65 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         });
 
         JTFCategoria.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        JTFCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFCategoriaActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Categoria", "Tamanho", "Embalagem"
+            }
+        ));
+        jTable1.setAutoscrolls(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        jEditar.setText("Editar");
+        jEditar.setPreferredSize(new java.awt.Dimension(70, 35));
+        jEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JTFEmbalagem)
-                            .addComponent(JTFCategoria)
-                            .addComponent(JTFTamanho, 0, 215, Short.MAX_VALUE)))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTFEmbalagem, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                            .addComponent(jCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(49, 49, 49))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JTFCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                                .addComponent(jRemover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jFechar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTFTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,24 +197,30 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JTFEmbalagem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
 
         pack();
@@ -156,19 +229,14 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     private void jFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFecharActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-
     }//GEN-LAST:event_jFecharActionPerformed
-
-    private void jCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jCancelarActionPerformed
 
     private void jCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarActionPerformed
         // TODO add your handling code here:
         try {
             String categoria = "";
             String embalagem = "";
+            String tamanho = "";
 
             if (this.JTFCategoria.getText().length() < 2) {
                 throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
@@ -178,8 +246,6 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
             if (this.JTFCategoria.getText().matches(".*\\d.*")) {
                 throw new Mensagem("Categoria não pode conter números.");
-            } else {
-                categoria = this.JTFCategoria.getText();
             }
 
             if (this.JTFEmbalagem.getText().length() < 2) {
@@ -190,28 +256,120 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
             if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
                 throw new Mensagem("Embalagem não pode conter números.");
-            } else {
-                embalagem = this.JTFEmbalagem.getText();
             }
 
-            /**
-             * if (this.JTFTamanho.getSelectedIndex().length() < 1) { throw new
-             * Mensagem("Preço deve ser número e maior que zero."); } else {
-             * preco = Double.parseDouble(this.JTFTamanho.getText()); }
-             *
-             * if (this.objetoferramenta.insertFerramentaBD(nome, marca, preco))
-             * { JOptionPane.showMessageDialog(null, "Ferramenta Cadastrada com
-             * Sucesso!"); // limpa campos da interface
-             * this.JTFCategoria.setText(""); this.JTFCategoria.setText("");
-             * this.JTFTamanho.setText(""); }*
-             */
+            // Pega o valor selecionado da ComboBox
+            tamanho = this.JTFTamanho.getSelectedItem().toString();
+
+            // Validação Tamanho
+            if (tamanho == null || tamanho.isEmpty()) {
+                throw new Mensagem("Selecione um tamanho.");
+            }
+
+            // Aqui você deve adicionar à tabela
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+            modelo.addRow(new Object[]{
+                categoria,
+                tamanho,
+                embalagem
+                
+            });
+
+            // Limpa os campos
+            this.JTFCategoria.setText("");
+            this.JTFEmbalagem.setText("");
+            this.JTFTamanho.setSelectedIndex(0);
+
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
     }//GEN-LAST:event_jCadastrarActionPerformed
 
+    private void jRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoverActionPerformed
+        // TODO add your handling code here:
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente remover esta categoria?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                tableModel.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(null, "Categoria removida com sucesso!");
+                selectedRow = -1;
+
+                // Limpa os campos
+                JTFCategoria.setText("");
+                JTFTamanho.setSelectedIndex(0);
+                JTFEmbalagem.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma categoria para remover.");
+        }
+
+    }//GEN-LAST:event_jRemoverActionPerformed
+
+    private void JTFCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTFCategoriaActionPerformed
+
+    private void jEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditarActionPerformed
+        // TODO add your handling code here:
+
+        try {
+        int linhaSelecionada = jTable1.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            throw new Mensagem("Selecione uma linha para editar.");
+        }
+
+        String categoria = "";
+        String embalagem = "";
+        String tamanho = "";
+
+        // Validação Categoria
+        if (this.JTFCategoria.getText().length() < 2) {
+            throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
+        } else if (this.JTFCategoria.getText().matches(".*\\d.*")) {
+            throw new Mensagem("Categoria não pode conter números.");
+        } else {
+            categoria = this.JTFCategoria.getText();
+        }
+
+        // Validação Embalagem
+        if (this.JTFEmbalagem.getText().length() < 2) {
+            throw new Mensagem("Embalagem deve conter ao menos 2 caracteres.");
+        } else if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
+            throw new Mensagem("Embalagem não pode conter números.");
+        } else {
+            embalagem = this.JTFEmbalagem.getText();
+        }
+
+        // Pega o valor selecionado da ComboBox
+        tamanho = this.JTFTamanho.getSelectedItem().toString();
+
+        if (tamanho == null || tamanho.isEmpty()) {
+            throw new Mensagem("Selecione um tamanho.");
+        }
+
+        // Atualiza a tabela
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        modelo.setValueAt(categoria, linhaSelecionada, 0);
+        modelo.setValueAt(tamanho, linhaSelecionada, 1);
+        modelo.setValueAt(embalagem, linhaSelecionada, 2);
+
+        JOptionPane.showMessageDialog(null, "Categoria editada com sucesso!");
+
+        // Limpa os campos
+        this.JTFCategoria.setText("");
+        this.JTFEmbalagem.setText("");
+        this.JTFTamanho.setSelectedIndex(0);
+
+    } catch (Mensagem erro) {
+        JOptionPane.showMessageDialog(null, erro.getMessage());
+    }
+    }//GEN-LAST:event_jEditarActionPerformed
+
     private void JTFTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFTamanhoActionPerformed
         // TODO add your handling code here:
+        JTFTamanho.setVisible(true);
+
     }//GEN-LAST:event_JTFTamanhoActionPerformed
 
     /**
@@ -254,12 +412,15 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField JTFEmbalagem;
     private javax.swing.JComboBox<String> JTFTamanho;
     private javax.swing.JButton jCadastrar;
-    private javax.swing.JButton jCancelar;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jEditar;
     private javax.swing.JButton jFechar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jRemover;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
