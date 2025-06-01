@@ -9,6 +9,9 @@ Integrantes:
 
 ---
 ### Versões
-- Apache NetBeans IDE 17
+- Apache NetBeans IDE 25
+- MySQL Workbench 8.0 CE
 - Java 8
 - Windows 10 e 11
+- Github
+
