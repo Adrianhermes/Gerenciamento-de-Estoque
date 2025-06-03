@@ -176,7 +176,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuCadastroDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeProdutosActionPerformed
         // TODO add your handling code here:
-        FrmCadastroDeProdutos objeto = new FrmCadastroDeProdutos();
+        FrmTelaDeProdutos objeto = new FrmTelaDeProdutos();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
