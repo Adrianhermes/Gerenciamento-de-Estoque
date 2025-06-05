@@ -1,11 +1,12 @@
 package visao;
 
 import javax.swing.JOptionPane;
-import modelo.Categoria;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import dao.CategoriaDAO;
+import modelo.Categoria;
 
 public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
@@ -102,7 +103,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
             }
         });
 
-        jFechar.setText("Fechar");
+        jFechar.setText("Voltar");
         jFechar.setPreferredSize(new java.awt.Dimension(70, 35));
         jFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +231,9 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
     private void jFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFecharActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        FrmMenuPrincipal objeto = new FrmMenuPrincipal();
+        objeto.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jFecharActionPerformed
 
     private void jCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarActionPerformed
@@ -264,6 +267,15 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
             if (tamanho == null || tamanho.isEmpty()) {
                 throw new Mensagem("Selecione um tamanho.");
+            }
+
+            // Verificação de duplicatas
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                String categoriaExistente = tableModel.getValueAt(i, 1).toString();
+                String embalagemExistente = tableModel.getValueAt(i, 3).toString();
+                if (categoriaExistente.equalsIgnoreCase(categoria) && embalagemExistente.equalsIgnoreCase(embalagem)) {
+                    throw new Mensagem("Já existe uma categoria com esta embalagem cadastrada.");
+                }
             }
 
             tableModel.addRow(new Object[]{
