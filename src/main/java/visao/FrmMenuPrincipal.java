@@ -136,6 +136,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuRelatorios.add(jMenuBalancoFisicoFinanceiro);
 
         jMenuRelatorioPorCategoria.setText("Relatório por Categoria");
+        jMenuRelatorioPorCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRelatorioPorCategoriaActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuRelatorioPorCategoria);
 
         jMenuBar1.add(jMenuRelatorios);
@@ -180,10 +185,22 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
-    private void jMenuEntradaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {
-        FrmGerenciadorEstoque gerenciador = new FrmGerenciadorEstoque();
-        gerenciador.setVisible(true);
-    }
+    private void jMenuRelatorioPorCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioPorCategoriaActionPerformed
+        // TODO add your handling code here:
+        FrmRelatorioQuantidadeProdutosPorCategoria objeto = new FrmRelatorioQuantidadeProdutosPorCategoria();
+        objeto.setVisible(true);
+        this.dispose();
+                
+    }//GEN-LAST:event_jMenuRelatorioPorCategoriaActionPerformed
+
+    private void jMenuEntradaEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEntradaEstoqueActionPerformed
+        FrmGerenciadorEstoque objeto = new FrmGerenciadorEstoque();
+        objeto.setVisible(true);
+        this.dispose();
+       
+    }//GEN-LAST:event_jMenuEntradaEstoqueActionPerformed
+
+
 
     /**
      * @param args the command line arguments
