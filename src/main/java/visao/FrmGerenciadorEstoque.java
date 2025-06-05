@@ -41,8 +41,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         jTProduto = new javax.swing.JTextField();
         jTQuantidade = new javax.swing.JTextField();
         jTDataValidade = new javax.swing.JTextField();
-        jButtonRegistrarEntrada = new javax.swing.JButton();
-        jButtonRegistrarSaida = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,41 +68,10 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
 
         jTDataValidade.setText("Data de Validade");
 
-        jButtonRegistrarEntrada.setText("Registrar Entrada");
-        jButtonRegistrarSaida.setText("Registrar Saída");
-
-        jButtonRegistrarEntrada.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarEntradaActionPerformed(evt);
-            }
-        });
-        jButtonRegistrarSaida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarSaidaActionPerformed(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int selectedRow = jTable1.getSelectedRow();
-                if (selectedRow != -1) {
-                    Object produto = jTable1.getValueAt(selectedRow, 0);
-                    Object quantidade = jTable1.getValueAt(selectedRow, 1);
-                    Object validade = jTable1.getValueAt(selectedRow, 2);
-                    jTProduto.setText(produto != null ? produto.toString() : "");
-                    jTQuantidade.setText(quantidade != null ? quantidade.toString() : "");
-                    jTDataValidade.setText(validade != null ? validade.toString() : "");
-                }
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -116,11 +84,10 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistrarEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonRegistrarSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTProduto)
                     .addComponent(jTQuantidade)
-                    .addComponent(jTDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jTDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -138,19 +105,24 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 .addComponent(jTQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonRegistrarEntrada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonRegistrarSaida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(53, 53, 53))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        FrmMenuPrincipal objeto = new FrmMenuPrincipal();
+        objeto.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,13 +163,12 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTDataValidade;
     private javax.swing.JTextField jTProduto;
     private javax.swing.JTextField jTQuantidade;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jButtonRegistrarEntrada;
-    private javax.swing.JButton jButtonRegistrarSaida;
     // End of variables declaration//GEN-END:variables
 
     private void configurarPlaceholders() {
