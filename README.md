@@ -17,8 +17,8 @@ Acesso ao banco de dados
 ---
 Para acesso ao banco de dados, utilizar o seguinte usuário e senha :
 
-usuário : root
-senha : root2025
+* usuário : root
+* senha : root2025
 
 Requisitos do sistema
 ---
