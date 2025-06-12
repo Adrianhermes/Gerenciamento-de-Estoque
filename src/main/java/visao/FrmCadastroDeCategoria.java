@@ -2,10 +2,10 @@ package visao;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import dao.CategoriaDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.TableRowSorter;
 import modelo.Categoria;
 
 public class FrmCadastroDeCategoria extends javax.swing.JFrame {
@@ -13,33 +13,44 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     /**
      * Creates new form FrmCadastroDeCategoria
      */
-    private DefaultTableModel tableModel;
-    private int selectedRow = -1;
-    private int contadorID = 1;
-
+    /**
+     * private DefaultTableModel tableModel; private int selectedRow = -1;
+     * private int contadorID = 1; *
+     */
     public FrmCadastroDeCategoria() {
         initComponents();
-        tableModel = new DefaultTableModel(
-                new Object[]{"ID", "Categoria", "Tamanho", "Embalagem"}, 0
-        );
-        jTable1.setModel(tableModel);
-        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        DefaultTableModel modelo = (DefaultTableModel) JTCategoria.getModel();
+        JTCategoria.setRowSorter(new TableRowSorter(modelo));
 
-// Evento para preencher os campos ao selecionar uma linha
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    selectedRow = jTable1.getSelectedRow();
-                    if (selectedRow != -1) {
-                        JTFCategoria.setText(tableModel.getValueAt(selectedRow, 1).toString());
-                        JTFTamanho.setSelectedItem(tableModel.getValueAt(selectedRow, 2).toString());
-                        JTFEmbalagem.setText(tableModel.getValueAt(selectedRow, 3).toString());
-                    }
-                }
+        readJTable();
+
+        JTCategoria.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && JTCategoria.getSelectedRow() != -1) {
+                int selectedRow = JTCategoria.getSelectedRow();
+                JTFCategoria.setText(JTCategoria.getValueAt(selectedRow, 1).toString());
+                JTFTamanho.setSelectedItem(JTCategoria.getValueAt(selectedRow, 2).toString());
+                JTFEmbalagem.setText(JTCategoria.getValueAt(selectedRow, 3).toString());
             }
         });
 
+    }
+
+    public void readJTable() {
+        DefaultTableModel modelo = (DefaultTableModel) JTCategoria.getModel();
+        modelo.setNumRows(0);
+        CategoriaDAO cdao = new CategoriaDAO();
+
+        for (Categoria c : cdao.read()) {
+
+            modelo.addRow(new Object[]{
+                c.getId(),
+                c.getCategoria(),
+                c.getTamanho(),
+                c.getEmbalagem()
+
+            });
+
+        }
     }
 
     /**
@@ -63,7 +74,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         JTFTamanho = new javax.swing.JComboBox<>();
         JTFCategoria = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTCategoria = new javax.swing.JTable();
         jEditar = new javax.swing.JButton();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -130,7 +141,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,9 +152,25 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
             new String [] {
                 "ID", "Categoria", "Tamanho", "Embalagem"
             }
-        ));
-        jTable1.setAutoscrolls(false);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTCategoria.setAutoscrolls(false);
+        JTCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JTCategoriaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTCategoriaKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(JTCategoria);
 
         jEditar.setText("Editar");
         jEditar.setPreferredSize(new java.awt.Dimension(70, 35));
@@ -231,22 +258,18 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
     private void jFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFecharActionPerformed
         // TODO add your handling code here:
-        FrmMenuPrincipal objeto = new FrmMenuPrincipal();
-        objeto.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jFecharActionPerformed
 
     private void jCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarActionPerformed
         // TODO add your handling code here:
         try {
-            String categoria = "";
-            String embalagem = "";
             String tamanho = "";
 
             if (this.JTFCategoria.getText().length() < 2) {
                 throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
             } else {
-                categoria = this.JTFCategoria.getText();
+                this.JTFCategoria.getText();
             }
 
             if (this.JTFCategoria.getText().matches(".*\\d.*")) {
@@ -256,7 +279,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
             if (this.JTFEmbalagem.getText().length() < 2) {
                 throw new Mensagem("Embalagem deve conter ao menos 2 caracteres.");
             } else {
-                embalagem = this.JTFEmbalagem.getText();
+                this.JTFEmbalagem.getText();
             }
 
             if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
@@ -269,51 +292,36 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
                 throw new Mensagem("Selecione um tamanho.");
             }
 
-            // Verificação de duplicatas
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                String categoriaExistente = tableModel.getValueAt(i, 1).toString();
-                String embalagemExistente = tableModel.getValueAt(i, 3).toString();
-                if (categoriaExistente.equalsIgnoreCase(categoria) && embalagemExistente.equalsIgnoreCase(embalagem)) {
-                    throw new Mensagem("Já existe uma categoria com esta embalagem cadastrada.");
-                }
-            }
-
-            tableModel.addRow(new Object[]{
-                contadorID, // ID
-                categoria,
-                tamanho,
-                embalagem
-            });
-            contadorID++;
-
-            // Limpa os campos
-            this.JTFCategoria.setText("");
-            this.JTFEmbalagem.setText("");
-            this.JTFTamanho.setSelectedIndex(0);
-
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
+
+        Categoria c = new Categoria();
+        CategoriaDAO dao = new CategoriaDAO();
+        c.setCategoria(JTFCategoria.getText());
+        c.setTamanho(JTFTamanho.getSelectedItem().toString());
+        c.setEmbalagem(JTFEmbalagem.getText());
+        dao.create(c);
+        JTFCategoria.setText("");
+        JTFTamanho.setSelectedIndex(0);
+        JTFEmbalagem.setText("");
+        readJTable();
     }//GEN-LAST:event_jCadastrarActionPerformed
 
     private void jRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoverActionPerformed
         // TODO add your handling code here:
-        if (selectedRow != -1) {
-            int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente remover esta categoria?", "Confirmação", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                tableModel.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(null, "Categoria removida com sucesso!");
-                selectedRow = -1;
-
-                // Limpa os campos
-                JTFCategoria.setText("");
-                JTFTamanho.setSelectedIndex(0);
-                JTFEmbalagem.setText("");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione uma categoria para remover.");
+        if (JTCategoria.getSelectedRow() != -1) {
+            Categoria c = new Categoria();
+            CategoriaDAO dao = new CategoriaDAO();
+            c.setId((int) JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0));
+            dao.delete(c);
+            JTFCategoria.setText("");
+            JTFTamanho.setSelectedIndex(0);
+            JTFEmbalagem.setText("");
+            readJTable();
+        } else{
+            JOptionPane.showMessageDialog(null,"Selecione uma categoria para Excluir. ");
         }
-
     }//GEN-LAST:event_jRemoverActionPerformed
 
     private void JTFCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCategoriaActionPerformed
@@ -324,52 +332,45 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            int linhaSelecionada = jTable1.getSelectedRow();
-
-            if (linhaSelecionada == -1) {
-                throw new Mensagem("Selecione uma linha para editar.");
-            }
-
-            String categoria = "";
-            String embalagem = "";
-            String tamanho = "";
-
             if (this.JTFCategoria.getText().length() < 2) {
-                throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
+                try {
+                    throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
+                } catch (Mensagem ex) {
+                    Logger.getLogger(FrmCadastroDeCategoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (this.JTFCategoria.getText().matches(".*\\d.*")) {
-                throw new Mensagem("Categoria não pode conter números.");
-            } else {
-                categoria = this.JTFCategoria.getText();
+                try {
+                    throw new Mensagem("Categoria não pode conter números.");
+                } catch (Mensagem ex) {
+                    Logger.getLogger(FrmCadastroDeCategoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             if (this.JTFEmbalagem.getText().length() < 2) {
                 throw new Mensagem("Embalagem deve conter ao menos 2 caracteres.");
             } else if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
                 throw new Mensagem("Embalagem não pode conter números.");
-            } else {
-                embalagem = this.JTFEmbalagem.getText();
             }
-
-            tamanho = this.JTFTamanho.getSelectedItem().toString();
-
-            if (tamanho == null || tamanho.isEmpty()) {
-                throw new Mensagem("Selecione um tamanho.");
-            }
-
-            // Não alteramos o ID (coluna 0)
-            tableModel.setValueAt(categoria, linhaSelecionada, 1);
-            tableModel.setValueAt(tamanho, linhaSelecionada, 2);
-            tableModel.setValueAt(embalagem, linhaSelecionada, 3);
-
-            JOptionPane.showMessageDialog(null, "Categoria editada com sucesso!");
-
-            this.JTFCategoria.setText("");
-            this.JTFEmbalagem.setText("");
-            this.JTFTamanho.setSelectedIndex(0);
 
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         }
+
+        if (JTCategoria.getSelectedRow() != -1) {
+
+            Categoria c = new Categoria();
+            CategoriaDAO dao = new CategoriaDAO();
+            c.setCategoria(JTFCategoria.getText());
+            c.setTamanho(JTFTamanho.getSelectedItem().toString());
+            c.setEmbalagem(JTFEmbalagem.getText());
+            c.setId((int) JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0));
+            dao.update(c);
+            JTFCategoria.setText("");
+            JTFTamanho.setSelectedIndex(0);
+            JTFEmbalagem.setText("");
+            readJTable();
+        }
+
     }//GEN-LAST:event_jEditarActionPerformed
 
     private void JTFTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFTamanhoActionPerformed
@@ -377,6 +378,22 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         JTFTamanho.setVisible(true);
 
     }//GEN-LAST:event_JTFTamanhoActionPerformed
+
+    private void JTCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTCategoriaKeyReleased
+        // TODO add your handling code here:
+
+        if (JTCategoria.getSelectedRow() != -1) {
+            JTFCategoria.setText(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 1).toString());
+            JTFEmbalagem.setText(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 2).toString());
+            JTFTamanho.setSelectedItem(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 3).toString());
+
+        }
+
+    }//GEN-LAST:event_JTCategoriaKeyReleased
+
+    private void JTCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTCategoriaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTCategoriaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -414,6 +431,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JTCategoria;
     private javax.swing.JTextField JTFCategoria;
     private javax.swing.JTextField JTFEmbalagem;
     private javax.swing.JComboBox<String> JTFTamanho;
@@ -427,6 +445,5 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jRemover;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,59 +1,66 @@
-
 package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConexaoBancoDeDados {
-/**
- * Classe para gerenciar a conexão com o banco de dados.
- */
-    private static Connection conexao = null;
 
-    /**
-     * Método para obter a conexão com o banco de dados.
-     * Se a conexão já existe, retorna a conexão existente.
-     * Se a conexão não existe, tenta estabelecer uma nova conexão.
-     * @return A conexão com o banco de dados.
-     */
+    private static final String driver = "com.mysql.cj.jdbc.Driver";
+    private static final String server = "localhost";
+    private static final String bancoDeDados = "db_banco";
+    private static final String url = "jdbc:mysql://" + server + ":3306/" + bancoDeDados + "?useTimezone=true&serverTimezone=UTC";
+    private static final String usuario = "root";
+    private static final String senha = "root2025";//senha do banco de dados
+
     public static Connection getConexao() {
-        if (conexao == null) {
-            try {
-                String driver = "com.mysql.cj.jdbc.Driver";
-                Class.forName(driver);
+        try {
+            Class.forName(driver);
 
-                String server = "localhost"; 
-                String bancoDeDados = "db_gerenciamento";
-                String url = "jdbc:mysql://" + server + ":3306/" + bancoDeDados + "?useTimezone=true&serverTimezone=UTC";
-                String usuario = "root";
-                String senha = "root2025";//senha do banco de dados
+            return DriverManager.getConnection(url, usuario, senha);
 
-                conexao = DriverManager.getConnection(url, usuario, senha);
-
-                if (conexao != null) {
-                    System.out.println("Status: Conectado!");
-                } else {
-                    System.out.println("Status: NÃO CONECTADO!");
-                }
-            } catch (ClassNotFoundException e) {
-                System.out.println("O driver não foi encontrado. " + e.getMessage());
-            } catch (SQLException e) {
-                System.out.println("Não foi possível conectar...");
-            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new RuntimeException("Erro na conexão: ", ex);
         }
-        return conexao;
     }
 
-    /**
-     * Método para preparar uma declaração SQL.
-     * @param query A consulta SQL a ser preparada.
-     * @return Um objeto PreparedStatement que representa a consulta SQL preparada.
-     */
-    public PreparedStatement prepareStatement(String query) {
-        
-        return null;
-        
+    public static void closeConnection(Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void closeConnection(Connection con, PreparedStatement stmt) {
+
+        closeConnection(con);
+
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
+
+        closeConnection(con, stmt);
+
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

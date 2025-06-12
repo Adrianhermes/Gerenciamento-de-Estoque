@@ -6,31 +6,35 @@ public class Categoria {
     private String tamanho;
     private String embalagem;
 
-    // Construtor
-    public Categoria(int id, String categoria, String tamanho, String embalagem) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.categoria = categoria;
-        this.tamanho = tamanho;
-        this.embalagem = embalagem;
     }
 
-    // Construtor sem ID (para inserção)
-    public Categoria(String categoria, String tamanho, String embalagem) {
-        this.categoria = categoria;
-        this.tamanho = tamanho;
-        this.embalagem = embalagem;
+    public String getCategoria() {
+        return categoria;
     }
 
-    // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getTamanho() {
+        return tamanho;
+    }
 
-    public String getTamanho() { return tamanho; }
-    public void setTamanho(String tamanho) { this.tamanho = tamanho; }
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
 
-    public String getEmbalagem() { return embalagem; }
-    public void setEmbalagem(String embalagem) { this.embalagem = embalagem; }
+    public String getEmbalagem() {
+        return embalagem;
+    }
+
+    public void setEmbalagem(String embalagem) {
+        this.embalagem = embalagem;
+    }
 }

@@ -1,88 +1,112 @@
 package dao;
 
 import modelo.Categoria;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class CategoriaDAO {
 
-    // Método para inserir uma nova categoria
-    public void inserirCategoria(Categoria categoria) {
-        String sql = "INSERT INTO categoria (categoria, tamanho, embalagem) VALUES (?, ?, ?)";
+    public void create(Categoria c) {
 
-        try (Connection conn = ConexaoBancoDeDados.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection con = ConexaoBancoDeDados.getConexao();
+        PreparedStatement stmt = null;
 
-            stmt.setString(1, categoria.getCategoria());
-            stmt.setString(2, categoria.getTamanho());
-            stmt.setString(3, categoria.getEmbalagem());
+        try {
+            stmt = con.prepareStatement("INSERT INTO categoria (categoria,tamanho,embalagem)VALUES (?,?,?)");
+            stmt.setString(1, c.getCategoria());
+            stmt.setString(2, c.getTamanho());
+            stmt.setString(3, c.getEmbalagem());
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
+        } finally {
+            ConexaoBancoDeDados.closeConnection(con, stmt);
         }
     }
 
-    // Método para listar todas as categorias
-    public List<Categoria> listarCategorias() {
-        List<Categoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM categoria";
+    public List<Categoria> read() {
+        Connection con = ConexaoBancoDeDados.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        try (Connection conn = ConexaoBancoDeDados.getConexao();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        List<Categoria> categorias = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM categoria");
+            rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Categoria cat = new Categoria(
-                        rs.getInt("id"),
-                        rs.getString("categoria"),
-                        rs.getString("tamanho"),
-                        rs.getString("embalagem")
-                );
-                lista.add(cat);
+                Categoria categoria = new Categoria();
+
+                categoria.setId(rs.getInt("id"));
+                categoria.setCategoria(rs.getString("categoria"));
+                categoria.setTamanho(rs.getString("tamanho"));
+                categoria.setEmbalagem(rs.getString("embalagem"));
+                categorias.add(categoria);
+
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar: " + ex);
+        } finally {
+            ConexaoBancoDeDados.closeConnection(con, stmt, rs);
         }
 
-        return lista;
+        return categorias;
+
     }
 
-    // Método para atualizar uma categoria
-    public void atualizarCategoria(Categoria categoria) {
-        String sql = "UPDATE categoria SET categoria = ?, tamanho = ?, embalagem = ? WHERE id = ?";
+    public void update(Categoria c) {
 
-        try (Connection conn = ConexaoBancoDeDados.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection con = ConexaoBancoDeDados.getConexao();
+        PreparedStatement stmt = null;
 
-            stmt.setString(1, categoria.getCategoria());
-            stmt.setString(2, categoria.getTamanho());
-            stmt.setString(3, categoria.getEmbalagem());
-            stmt.setInt(4, categoria.getId());
+        try {
+            stmt = con.prepareStatement("UPDATE categoria SET categoria = ?,tamanho = ?,embalagem = ? WHERE id = ?");
+            stmt.setString(1, c.getCategoria());
+            stmt.setString(2, c.getTamanho());
+            stmt.setString(3, c.getEmbalagem());
+            stmt.setInt(4, c.getId());
 
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Atualizar: " + ex);
+        } finally {
+            ConexaoBancoDeDados.closeConnection(con, stmt);
         }
     }
+    public void delete(Categoria c) {
 
-    // Método para deletar uma categoria
-    public void deletarCategoria(int id) {
-        String sql = "DELETE FROM categoria WHERE id = ?";
+        Connection con = ConexaoBancoDeDados.getConexao();
+        PreparedStatement stmt = null;
 
-        try (Connection conn = ConexaoBancoDeDados.getConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try {
+            stmt = con.prepareStatement("DELETE FROM categoria WHERE id = ?");
+            stmt.setInt(1, c.getId());
 
-            stmt.setInt(1, id);
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Removido com sucesso!");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Remover: " + ex);
+        } finally {
+            ConexaoBancoDeDados.closeConnection(con, stmt);
         }
     }
+
 }
