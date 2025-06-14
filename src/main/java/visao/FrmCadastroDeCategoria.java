@@ -250,78 +250,42 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFecharActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jFecharActionPerformed
 
     private void jCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarActionPerformed
-        // TODO add your handling code here:
-        try {
-            String tamanho = "";
-
-            if (this.JTFCategoria.getText().length() < 2) {
-                throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
-            } else {
-                this.JTFCategoria.getText();
-            }
-
-            if (this.JTFCategoria.getText().matches(".*\\d.*")) {
-                throw new Mensagem("Categoria não pode conter números.");
-            }
-
-            if (this.JTFEmbalagem.getText().length() < 2) {
-                throw new Mensagem("Embalagem deve conter ao menos 2 caracteres.");
-            } else {
-                this.JTFEmbalagem.getText();
-            }
-
-            if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
-                throw new Mensagem("Embalagem não pode conter números.");
-            }
-
-            tamanho = this.JTFTamanho.getSelectedItem().toString();
-
-            if (tamanho == null || tamanho.isEmpty()) {
-                throw new Mensagem("Selecione um tamanho.");
-            }
-
-        } catch (Mensagem erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage());
-        }
-
         Categoria c = new Categoria();
-        CategoriaDAO dao = new CategoriaDAO();
+        CategoriaDAO cdao = new CategoriaDAO();
+
         c.setCategoria(JTFCategoria.getText());
         c.setTamanho(JTFTamanho.getSelectedItem().toString());
         c.setEmbalagem(JTFEmbalagem.getText());
-        dao.create(c);
+
+        cdao.create(c);
+        readJTable();
+
         JTFCategoria.setText("");
         JTFTamanho.setSelectedIndex(0);
         JTFEmbalagem.setText("");
-        readJTable();
+
     }//GEN-LAST:event_jCadastrarActionPerformed
 
     private void jRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoverActionPerformed
-        // TODO add your handling code here:
-        if (JTCategoria.getSelectedRow() != -1) {
-            Categoria c = new Categoria();
-            CategoriaDAO dao = new CategoriaDAO();
-            c.setId((int) JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0));
-            dao.delete(c);
-            JTFCategoria.setText("");
-            JTFTamanho.setSelectedIndex(0);
-            JTFEmbalagem.setText("");
-            readJTable();
-        } else{
-            JOptionPane.showMessageDialog(null,"Selecione uma categoria para Excluir. ");
-        }
+        Categoria c = new Categoria();
+        CategoriaDAO cdao = new CategoriaDAO();
+
+        c.setId(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
+
+        cdao.delete(c);
+        readJTable();
+
     }//GEN-LAST:event_jRemoverActionPerformed
 
     private void JTFCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCategoriaActionPerformed
@@ -329,66 +293,29 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_JTFCategoriaActionPerformed
 
     private void jEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditarActionPerformed
-        // TODO add your handling code here:
+        Categoria c = new Categoria();
+        CategoriaDAO cdao = new CategoriaDAO();
 
-        try {
-            if (this.JTFCategoria.getText().length() < 2) {
-                try {
-                    throw new Mensagem("Categoria deve conter ao menos 2 caracteres.");
-                } catch (Mensagem ex) {
-                    Logger.getLogger(FrmCadastroDeCategoria.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (this.JTFCategoria.getText().matches(".*\\d.*")) {
-                try {
-                    throw new Mensagem("Categoria não pode conter números.");
-                } catch (Mensagem ex) {
-                    Logger.getLogger(FrmCadastroDeCategoria.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        c.setId(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
+        c.setCategoria(JTFCategoria.getText());
+        c.setTamanho(JTFTamanho.getSelectedItem().toString());
+        c.setEmbalagem(JTFEmbalagem.getText());
 
-            if (this.JTFEmbalagem.getText().length() < 2) {
-                throw new Mensagem("Embalagem deve conter ao menos 2 caracteres.");
-            } else if (this.JTFEmbalagem.getText().matches(".*\\d.*")) {
-                throw new Mensagem("Embalagem não pode conter números.");
-            }
+        cdao.update(c);
+        readJTable();
 
-        } catch (Mensagem erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage());
-        }
-
-        if (JTCategoria.getSelectedRow() != -1) {
-
-            Categoria c = new Categoria();
-            CategoriaDAO dao = new CategoriaDAO();
-            c.setCategoria(JTFCategoria.getText());
-            c.setTamanho(JTFTamanho.getSelectedItem().toString());
-            c.setEmbalagem(JTFEmbalagem.getText());
-            c.setId((int) JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0));
-            dao.update(c);
-            JTFCategoria.setText("");
-            JTFTamanho.setSelectedIndex(0);
-            JTFEmbalagem.setText("");
-            readJTable();
-        }
+        JTFCategoria.setText("");
+        JTFTamanho.setSelectedIndex(0);
+        JTFEmbalagem.setText("");
 
     }//GEN-LAST:event_jEditarActionPerformed
 
     private void JTFTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFTamanhoActionPerformed
         // TODO add your handling code here:
-        JTFTamanho.setVisible(true);
-
     }//GEN-LAST:event_JTFTamanhoActionPerformed
 
     private void JTCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTCategoriaKeyReleased
         // TODO add your handling code here:
-
-        if (JTCategoria.getSelectedRow() != -1) {
-            JTFCategoria.setText(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 1).toString());
-            JTFEmbalagem.setText(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 2).toString());
-            JTFTamanho.setSelectedItem(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 3).toString());
-
-        }
-
     }//GEN-LAST:event_JTCategoriaKeyReleased
 
     private void JTCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTCategoriaKeyPressed

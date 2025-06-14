@@ -176,7 +176,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuRelatorioEstoqueMinimoActionPerformed
 
     private void jMenuBalancoFisicoFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBalancoFisicoFinanceiroActionPerformed
-        // TODO add your handling code here:
+        FrmBalancoFisicoFinanceiro objeto = new FrmBalancoFisicoFinanceiro();
+        objeto.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuBalancoFisicoFinanceiroActionPerformed
 
     private void jMenuCadastroDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeProdutosActionPerformed

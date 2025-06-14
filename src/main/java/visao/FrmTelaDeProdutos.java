@@ -30,7 +30,9 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        txtDesc = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        cmbTamanho = new javax.swing.JComboBox<>();
+        cmbEmbalagem = new javax.swing.JComboBox<>();
         txtQtd = new javax.swing.JTextField();
         txtPreço = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -38,15 +40,22 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTPprodutos = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        txtNome = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel3.setBackground(new java.awt.Color(153, 0, 0));
+
+        cmbTamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Pequeno", "Médio", "Grande"}));
+        cmbEmbalagem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Vidro", "Lata", "Plástico"}));
 
         txtQtd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,13 +85,21 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("DESCRIÇÃO");
+        jLabel1.setText("ID");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("QUANTIDADE");
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PREÇO");
+
+        jLabel4 = new javax.swing.JLabel();
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("TAMANHO");
+
+        jLabel5 = new javax.swing.JLabel();
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("EMBALAGEM");
 
         jButton3.setText("Atualizar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -94,17 +111,14 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 0, 0));
 
         jTPprodutos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
+            new Object [][] {},
             new String [] {
-                "DESCRIÇÃO", "QUANTIDADE", "PREÇO"
+                "ID", "NOME", "TAMANHO", "EMBALAGEM", "QUANTIDADE", "PREÇO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
-
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -162,15 +176,28 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
                         .addComponent(jButton3))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(191, 191, 191)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(73, 73, 73)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPreço, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbEmbalagem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPreço, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
@@ -179,24 +206,26 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPreço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbEmbalagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPreço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -232,59 +261,32 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-  DefaultTableModel dtmProdutos = (DefaultTableModel)jTPprodutos.getModel();
-
-        Object[] dados = {txtDesc.getText(),txtQtd.getText(), txtPreço.getText()};
-        dtmProdutos.addRow (dados);
-    
-    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-
-        //System.out.println("Linha selecionada: "+jTProdutos.getSelectedRow());
-        if (jTPprodutos.getSelectedRow() != -1){
-
-            DefaultTableModel dtmProdutos = (DefaultTableModel)jTPprodutos.getModel();
-            dtmProdutos.removeRow(jTPprodutos.getSelectedRow());
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (jTPprodutos.getSelectedRow() != -1){
-            jTPprodutos.setValueAt(txtDesc.getText(), jTPprodutos.getSelectedRow(), 0);
-            jTPprodutos.setValueAt(txtQtd.getText(), jTPprodutos.getSelectedRow(), 1);
-            jTPprodutos.setValueAt(txtPreço.getText(), jTPprodutos.getSelectedRow(), 2);
-        }
-        
-           
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTPprodutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPprodutosMouseClicked
-
-        if (jTPprodutos.getSelectedRow() != -1){
-            txtDesc.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 0).toString());
-            txtQtd.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 1).toString());
-            txtPreço.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 2).toString());
-             
-            
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTPprodutosMouseClicked
 
     private void jTPprodutosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPprodutosKeyReleased
-
-        if (jTPprodutos.getSelectedRow() != -1){
-            txtDesc.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 0).toString());
-            txtQtd.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 1).toString());
-            txtPreço.setText(jTPprodutos.getValueAt(jTPprodutos.getSelectedRow(), 2).toString());
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTPprodutosKeyReleased
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- System.exit(0);        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private String formatarPreco(String preco) {
+        // TODO add your handling code here:
+        return null;
+    }
 
     /**
      * @param args the command line arguments
@@ -312,13 +314,12 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmTelaDeProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FrmTelaDeProdutos().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmTelaDeProdutos().setVisible(true);
+            }
         });
     }
 
@@ -330,12 +331,18 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTPprodutos;
-    private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtPreço;
     private javax.swing.JTextField txtQtd;
+    private javax.swing.JComboBox<String> cmbTamanho;
+    private javax.swing.JComboBox<String> cmbEmbalagem;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

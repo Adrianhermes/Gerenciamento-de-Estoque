@@ -4,17 +4,28 @@
  */
 package visao;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.*;
+
 /**
  *
  * @author Adrian
  */
 public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
 
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblProdutos;
+    private javax.swing.JLabel lblTotalEstoque;
+    private javax.swing.JTextField txtTotalEstoque;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnVoltar;
+
     /**
      * Creates new form FrmBalancoFisicoFinanceiro
      */
     public FrmBalancoFisicoFinanceiro() {
         initComponents();
+        carregarProdutosNaTabela(getProdutosExemplo());
     }
 
     /**
@@ -25,22 +36,117 @@ public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProdutos = new javax.swing.JTable();
+        lblTotalEstoque = new javax.swing.JLabel();
+        txtTotalEstoque = new javax.swing.JTextField();
+        btnAtualizar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Produto", "Quantidade", "Valor Unitário", "Valor Total"
+            }
+        ));
+        jScrollPane1.setViewportView(tblProdutos);
+
+        lblTotalEstoque.setText("Valor Total do Estoque:");
+        txtTotalEstoque.setEditable(false);
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carregarProdutosNaTabela(getProdutosExemplo());
+            }
+        });
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FrmMenuPrincipal menu = new FrmMenuPrincipal();
+                menu.setVisible(true);
+                dispose();
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTotalEstoque)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAtualizar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalEstoque)
+                    .addComponent(txtTotalEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void carregarProdutosNaTabela(List<ProdutoExemplo> produtos) {
+        produtos.sort(Comparator.comparing(ProdutoExemplo::getNome));
+        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+        model.setRowCount(0);
+        double totalEstoque = 0.0;
+        for (ProdutoExemplo p : produtos) {
+            double valorTotal = p.getValorTotal();
+            model.addRow(new Object[]{
+                p.getNome(),
+                p.getQuantidade(),
+                String.format("%.2f", p.getValorUnitario()),
+                String.format("%.2f", valorTotal)
+            });
+            totalEstoque += valorTotal;
+        }
+        txtTotalEstoque.setText(String.format("%.2f", totalEstoque));
+    }
+
+    private List<ProdutoExemplo> getProdutosExemplo() {
+        return Arrays.asList(
+            new ProdutoExemplo("Arroz", 10, 5.50),
+            new ProdutoExemplo("Feijão", 5, 7.20),
+            new ProdutoExemplo("Macarrão", 20, 3.80)
+        );
+    }
+
+    public static class ProdutoExemplo {
+        private String nome;
+        private int quantidade;
+        private double valorUnitario;
+        public ProdutoExemplo(String nome, int quantidade, double valorUnitario) {
+            this.nome = nome;
+            this.quantidade = quantidade;
+            this.valorUnitario = valorUnitario;
+        }
+        public String getNome() { return nome; }
+        public int getQuantidade() { return quantidade; }
+        public double getValorUnitario() { return valorUnitario; }
+        public double getValorTotal() { return quantidade * valorUnitario; }
+    }
 
     /**
      * @param args the command line arguments
@@ -75,6 +181,12 @@ public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
                 new FrmBalancoFisicoFinanceiro().setVisible(true);
             }
         });
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        new FrmMenuPrincipal().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
