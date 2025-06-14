@@ -81,6 +81,7 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("QUANTIDADE");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PREÇO");
 
         jButton3.setText("Atualizar");
