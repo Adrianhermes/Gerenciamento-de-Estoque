@@ -24,14 +24,14 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
 
         readJTable();
 
-        JTCategoria.getSelectionModel().addListSelectionListener(e -> {
+    /**    JTCategoria.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && JTCategoria.getSelectedRow() != -1) {
                 int selectedRow = JTCategoria.getSelectedRow();
                 JTFCategoria.setText(JTCategoria.getValueAt(selectedRow, 1).toString());
                 JTFTamanho.setSelectedItem(JTCategoria.getValueAt(selectedRow, 2).toString());
                 JTFEmbalagem.setText(JTCategoria.getValueAt(selectedRow, 3).toString());
             }
-        });
+        }); **/
 
     }
 

@@ -1,6 +1,7 @@
 package modelo;
 
 public class Categoria {
+
     private int idCategoria;
     private String categoria;
     private String tamanho;
@@ -37,4 +38,10 @@ public class Categoria {
     public void setEmbalagem(String embalagem) {
         this.embalagem = embalagem;
     }
+
+    @Override
+    public String toString() {
+        return this.getCategoria(); // ou apenas "categoria", dependendo de como está seu campo
+    }
+
 }
