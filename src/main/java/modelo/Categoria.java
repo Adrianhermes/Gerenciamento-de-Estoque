@@ -1,17 +1,17 @@
 package modelo;
 
 public class Categoria {
-    private int id;
+    private int idCategoria;
     private String categoria;
     private String tamanho;
     private String embalagem;
 
-    public int getId() {
-        return id;
+    public int getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String getCategoria() {

@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class CategoriaDAO {
@@ -49,7 +47,7 @@ public class CategoriaDAO {
             while (rs.next()) {
                 Categoria categoria = new Categoria();
 
-                categoria.setId(rs.getInt("id"));
+                categoria.setIdCategoria(rs.getInt("idCategoria"));
                 categoria.setCategoria(rs.getString("categoria"));
                 categoria.setTamanho(rs.getString("tamanho"));
                 categoria.setEmbalagem(rs.getString("embalagem"));
@@ -73,11 +71,11 @@ public class CategoriaDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("UPDATE categoria SET categoria = ?,tamanho = ?,embalagem = ? WHERE id = ?");
+            stmt = con.prepareStatement("UPDATE categoria SET categoria = ?,tamanho = ?,embalagem = ? WHERE idCategoria = ?");
             stmt.setString(1, c.getCategoria());
             stmt.setString(2, c.getTamanho());
             stmt.setString(3, c.getEmbalagem());
-            stmt.setInt(4, c.getId());
+            stmt.setInt(4, c.getIdCategoria());
 
             stmt.executeUpdate();
 
@@ -95,8 +93,8 @@ public class CategoriaDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM categoria WHERE id = ?");
-            stmt.setInt(1, c.getId());
+            stmt = con.prepareStatement("DELETE FROM categoria WHERE idCategoria = ?");
+            stmt.setInt(1, c.getIdCategoria());
 
             stmt.executeUpdate();
 

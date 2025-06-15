@@ -43,7 +43,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         for (Categoria c : cdao.read()) {
 
             modelo.addRow(new Object[]{
-                c.getId(),
+                c.getIdCategoria(),
                 c.getCategoria(),
                 c.getTamanho(),
                 c.getEmbalagem()
@@ -281,7 +281,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         Categoria c = new Categoria();
         CategoriaDAO cdao = new CategoriaDAO();
 
-        c.setId(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
+        c.setIdCategoria(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
 
         cdao.delete(c);
         readJTable();
@@ -296,7 +296,7 @@ public class FrmCadastroDeCategoria extends javax.swing.JFrame {
         Categoria c = new Categoria();
         CategoriaDAO cdao = new CategoriaDAO();
 
-        c.setId(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
+        c.setIdCategoria(Integer.parseInt(JTCategoria.getValueAt(JTCategoria.getSelectedRow(), 0).toString()));
         c.setCategoria(JTFCategoria.getText());
         c.setTamanho(JTFTamanho.getSelectedItem().toString());
         c.setEmbalagem(JTFEmbalagem.getText());
