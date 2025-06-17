@@ -1,51 +1,24 @@
-/*
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package visao;
 
-import modelo.Categoria;
-import dao.CategoriaDAO;
-import java.util.List;
 import dao.ProdutoDAO;
-import modelo.Produto;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.Produto;
 
-/**
- *
- * @author kauan
- */
-public class FrmTelaDeProdutos extends javax.swing.JFrame {
+
+public class FrmTelaDeProduto extends javax.swing.JFrame {
 
 
     /**
      * Creates new form FrmTelaDeProdutos
      */
-    public FrmTelaDeProdutos() {
+    public FrmTelaDeProduto() {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTPprodutos.getModel();
         jTPprodutos.setRowSorter(new TableRowSorter(modelo));
 
         readJTable();
-
-      /**  jTPprodutos.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && jTPprodutos.getSelectedRow() != -1) {
-                int selectedRow = jTPprodutos.getSelectedRow();
-                txtDesc.setText(jTPprodutos.getValueAt(selectedRow, 1).toString());          
-                txtQtd.setText(jTPprodutos.getValueAt(selectedRow, 2).toString());
-                txtPreço.setText(jTPprodutos.getValueAt(selectedRow, 3).toString());
-                txtQtdEstoque.setText(jTPprodutos.getValueAt(selectedRow, 4).toString());
-                txtQtdMin.setText(jTPprodutos.getValueAt(selectedRow, 5).toString());
-                txtQtdMax.setText(jTPprodutos.getValueAt(selectedRow, 6).toString());          
-                jCBCategoria.setSelectedItem(jTPprodutos.getValueAt(selectedRow, 7).toString());
-            }
-        });
-        
-        
-**/
       
     }
     
@@ -467,20 +440,21 @@ public class FrmTelaDeProdutos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmTelaDeProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTelaDeProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmTelaDeProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTelaDeProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmTelaDeProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTelaDeProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmTelaDeProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTelaDeProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmTelaDeProdutos().setVisible(true);
+                new FrmTelaDeProduto().setVisible(true);
             }
         });
     }

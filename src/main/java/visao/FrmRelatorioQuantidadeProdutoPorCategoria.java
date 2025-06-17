@@ -8,12 +8,12 @@ package visao;
  *
  * @author Adrian
  */
-public class FrmRelatorioQuantidadeProdutosPorCategoria extends javax.swing.JFrame {
+public class FrmRelatorioQuantidadeProdutoPorCategoria extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmRelatorioQuantidadeProdutosPorCategoria
      */
-    public FrmRelatorioQuantidadeProdutosPorCategoria() {
+    public FrmRelatorioQuantidadeProdutoPorCategoria() {
         initComponents();
     }
 
@@ -75,6 +75,15 @@ public class FrmRelatorioQuantidadeProdutosPorCategoria extends javax.swing.JFra
         ));
         jTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTableAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMouseClicked(evt);
@@ -140,6 +149,10 @@ public class FrmRelatorioQuantidadeProdutosPorCategoria extends javax.swing.JFra
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTableAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -157,20 +170,21 @@ public class FrmRelatorioQuantidadeProdutosPorCategoria extends javax.swing.JFra
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutosPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutoPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutosPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutoPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutosPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutoPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutosPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmRelatorioQuantidadeProdutoPorCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmRelatorioQuantidadeProdutosPorCategoria().setVisible(true);
+                new FrmRelatorioQuantidadeProdutoPorCategoria().setVisible(true);
             }
         });
     }

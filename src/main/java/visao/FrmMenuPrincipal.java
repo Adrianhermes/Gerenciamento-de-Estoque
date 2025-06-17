@@ -183,13 +183,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuCadastroDeProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroDeProdutosActionPerformed
         // TODO add your handling code here:
-        FrmTelaDeProdutos objeto = new FrmTelaDeProdutos();
+        FrmTelaDeProduto objeto = new FrmTelaDeProduto();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuCadastroDeProdutosActionPerformed
 
     private void jMenuRelatorioPorCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioPorCategoriaActionPerformed
         // TODO add your handling code here:
-        FrmRelatorioQuantidadeProdutosPorCategoria objeto = new FrmRelatorioQuantidadeProdutosPorCategoria();
+        FrmRelatorioQuantidadeProdutoPorCategoria objeto = new FrmRelatorioQuantidadeProdutoPorCategoria();
         objeto.setVisible(true);
         this.dispose();
                 
