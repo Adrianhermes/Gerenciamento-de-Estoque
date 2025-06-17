@@ -114,6 +114,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuRelatorios.setText("Relatórios");
 
         jMenuListaDePrecos.setText("Lista de Preços");
+        jMenuListaDePrecos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuListaDePrecosActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuListaDePrecos);
 
         jMenuRelatorioEstoqueMinimo.setText("Relatório de Estoque Mínimo");
@@ -125,6 +130,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jMenuRelatorios.add(jMenuRelatorioEstoqueMinimo);
 
         jMenuRelatorioEstoqueMaximo.setText("Relatório de Estoque Máximo");
+        jMenuRelatorioEstoqueMaximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRelatorioEstoqueMaximoActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuRelatorioEstoqueMaximo);
 
         jMenuBalancoFisicoFinanceiro.setText("Balanço Físico e Financeiro");
@@ -172,7 +182,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuCadastroDeCategoriaActionPerformed
 
     private void jMenuRelatorioEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioEstoqueMinimoActionPerformed
-        // TODO add your handling code here:
+     FrmRelatorioEstoqueMin objeto = new FrmRelatorioEstoqueMin ();
+     objeto.setVisible(true);
+     this.dispose();
     }//GEN-LAST:event_jMenuRelatorioEstoqueMinimoActionPerformed
 
     private void jMenuBalancoFisicoFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBalancoFisicoFinanceiroActionPerformed
@@ -201,6 +213,18 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.dispose();
        
     }//GEN-LAST:event_jMenuEntradaEstoqueActionPerformed
+
+    private void jMenuListaDePrecosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuListaDePrecosActionPerformed
+        FrmRelatorioPreco objeto = new FrmRelatorioPreco ();
+                objeto.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuListaDePrecosActionPerformed
+
+    private void jMenuRelatorioEstoqueMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRelatorioEstoqueMaximoActionPerformed
+    FrmRelatorioEstoqueMax objeto = new FrmRelatorioEstoqueMax ();
+    objeto.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jMenuRelatorioEstoqueMaximoActionPerformed
 
 
 
