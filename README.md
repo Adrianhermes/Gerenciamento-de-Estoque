@@ -19,6 +19,7 @@ Para acesso ao banco de dados, utilizar o seguinte usuário e senha :
 
 * usuário : root
 * senha : root2025
+* Arquivo do Banco : [db_banco.sql](https://github.com/Adrianhermes/Gerenciamento-de-Estoque/blob/main/db_banco.sql}
 
 Requisitos do sistema
 ---
