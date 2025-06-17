@@ -82,4 +82,5 @@ RNF06. Execução
 - Java Development JDK 21
 - MySQL server 17.6
 - Github
+- JDBC Driver 9.3.0
 
