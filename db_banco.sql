@@ -9,13 +9,12 @@ CREATE TABLE categoria(
 CREATE TABLE produto (
   idProduto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   descricao VARCHAR(50) NOT NULL,
-  qtd VARCHAR(50) NOT NULL,
+  qtd INT NOT NULL,
   preco DOUBLE NOT NULL,
   quantidadeEstoque INT NOT NULL,
   quantidadeMinima INT NOT NULL,
   quantidadeMaxima INT NOT NULL,
-  idCategoria INT NOT NULL,
-  FOREIGN KEY (idCategoria) REFERENCES categoria(idCategoria)
+
 );
 
 select * from categoria;
