@@ -1,4 +1,3 @@
-
 package visao;
 
 import javax.swing.JOptionPane;
@@ -17,6 +16,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
     public FrmGerenciadorEstoque() {
         initComponents();
         configurarPlaceholders();
+        configurarSelecaoTabela();
     }
 
     /**
@@ -55,6 +55,11 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Remover");
 
@@ -284,6 +289,20 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 if (jTDataValidade.getText().isEmpty()) {
                     jTDataValidade.setText(placeholderValidade);
                 }
+            }
+        });
+    }
+
+    private void configurarSelecaoTabela() {
+        jTable1.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
+                int selectedRow = jTable1.getSelectedRow();
+                Object produto = jTable1.getValueAt(selectedRow, 0);
+                Object quantidade = jTable1.getValueAt(selectedRow, 1);
+                Object validade = jTable1.getValueAt(selectedRow, 2);
+                jTProduto.setText(produto != null ? produto.toString() : "");
+                jTQuantidade.setText(quantidade != null ? quantidade.toString() : "");
+                jTDataValidade.setText(validade != null ? validade.toString() : "");
             }
         });
     }
