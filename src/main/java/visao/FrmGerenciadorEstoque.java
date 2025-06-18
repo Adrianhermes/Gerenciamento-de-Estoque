@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package visao;
 
 import javax.swing.JOptionPane;
@@ -11,10 +8,7 @@ import java.awt.event.FocusEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-/**
- *
- * @author Adrian
- */
+
 public class FrmGerenciadorEstoque extends javax.swing.JFrame {
 
     /**
