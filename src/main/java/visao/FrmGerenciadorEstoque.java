@@ -6,6 +6,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JComboBox;
 
 
 public class FrmGerenciadorEstoque extends javax.swing.JFrame {
@@ -17,6 +18,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         initComponents();
         configurarPlaceholders();
         configurarSelecaoTabela();
+        configurarCategoriasFixas();
     }
 
     /**
@@ -38,18 +40,22 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButtonEntrada = new javax.swing.JButton();
+        jButtonSaida = new javax.swing.JButton();
+        panelEntradaSaida = new javax.swing.JPanel();
+        jComboCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Produto", "Quantidade", "Data de validade"
+                "Produto", "Quantidade", "Data de validade", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -62,6 +68,11 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         });
 
         jButton2.setText("Remover");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTProduto.setText("Produto");
         jTProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +102,24 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
             }
         });
 
+        jButtonEntrada.setText("Entrada");
+        jButtonEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntradaActionPerformed(evt);
+            }
+        });
+
+        jButtonSaida.setText("Saída");
+        jButtonSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaidaActionPerformed(evt);
+            }
+        });
+
+        panelEntradaSaida.setLayout(new java.awt.GridLayout(1, 2, 5, 0));
+        panelEntradaSaida.add(jButtonEntrada);
+        panelEntradaSaida.add(jButtonSaida);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,9 +129,11 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelEntradaSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTProduto)
                     .addComponent(jTQuantidade)
                     .addComponent(jTDataValidade, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                    .addComponent(jComboCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -128,9 +159,13 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jComboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelEntradaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -153,6 +188,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         String produto = jTProduto.getText();
         String quantidadeStr = jTQuantidade.getText();
         String validade = jTDataValidade.getText();
+        String categoria = (String) jComboCategoria.getSelectedItem();
 
         // Validate inputs
         if (produto.isEmpty() || produto.equals("Produto") || quantidadeStr.isEmpty() || quantidadeStr.equals("Quantidade")) {
@@ -179,13 +215,19 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
             return;
         }
 
+        if (categoria == null) {
+            JOptionPane.showMessageDialog(this, "Selecione uma categoria.");
+            return;
+        }
+
         // Add new row at the beginning of the table
-        model.insertRow(0, new Object[]{produto, quantidade, validade});
+        model.insertRow(0, new Object[]{produto, quantidade, validade, categoria});
 
         // Clear input fields
         jTProduto.setText("Produto");
         jTQuantidade.setText("Quantidade");
         jTDataValidade.setText("Data de Validade");
+        jComboCategoria.setSelectedIndex(-1);
 
         JOptionPane.showMessageDialog(this, "Item adicionado com sucesso!");
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -237,12 +279,16 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonEntrada;
+    private javax.swing.JButton jButtonSaida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTDataValidade;
     private javax.swing.JTextField jTProduto;
     private javax.swing.JTextField jTQuantidade;
     private javax.swing.JTable jTable1;
+    private javax.swing.JPanel panelEntradaSaida;
+    private javax.swing.JComboBox<String> jComboCategoria;
     // End of variables declaration//GEN-END:variables
 
     private void configurarPlaceholders() {
@@ -300,11 +346,29 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
                 Object produto = jTable1.getValueAt(selectedRow, 0);
                 Object quantidade = jTable1.getValueAt(selectedRow, 1);
                 Object validade = jTable1.getValueAt(selectedRow, 2);
+                Object categoria = jTable1.getValueAt(selectedRow, 3);
                 jTProduto.setText(produto != null ? produto.toString() : "");
                 jTQuantidade.setText(quantidade != null ? quantidade.toString() : "");
                 jTDataValidade.setText(validade != null ? validade.toString() : "");
+                if (categoria != null) {
+                    for (int i = 0; i < jComboCategoria.getItemCount(); i++) {
+                        if (jComboCategoria.getItemAt(i).equals(categoria.toString())) {
+                            jComboCategoria.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                } else {
+                    jComboCategoria.setSelectedIndex(-1);
+                }
             }
         });
+    }
+
+    private void configurarCategoriasFixas() {
+        jComboCategoria.removeAllItems();
+        jComboCategoria.addItem("Bebida");
+        jComboCategoria.addItem("Comida");
+        jComboCategoria.setSelectedIndex(-1);
     }
 
     private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,6 +468,7 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         String produto = jTProduto.getText();
         String quantidadeStr = jTQuantidade.getText();
         String validade = jTDataValidade.getText();
+        String categoria = (String) jComboCategoria.getSelectedItem();
         if (produto.isEmpty() || produto.equals("Produto") || quantidadeStr.isEmpty() || quantidadeStr.equals("Quantidade")) {
             JOptionPane.showMessageDialog(this, "Preencha o produto e a quantidade.");
             return;
@@ -423,9 +488,14 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data de validade inválida. Use o formato dd/MM/yyyy.");
             return;
         }
+        if (categoria == null) {
+            JOptionPane.showMessageDialog(this, "Selecione uma categoria.");
+            return;
+        }
         model.setValueAt(produto, selectedRow, 0);
         model.setValueAt(quantidade, selectedRow, 1);
         model.setValueAt(validade, selectedRow, 2);
+        model.setValueAt(categoria, selectedRow, 3);
         JOptionPane.showMessageDialog(this, "Item editado com sucesso!");
     }
 
@@ -439,5 +509,69 @@ public class FrmGerenciadorEstoque extends javax.swing.JFrame {
         }
         model.removeRow(selectedRow);
         JOptionPane.showMessageDialog(this, "Item removido com sucesso!");
+    }
+
+    private void jButtonEntradaActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item na tabela para registrar a entrada.");
+            return;
+        }
+        String input = JOptionPane.showInputDialog(this, "Qual a quantidade de entrada?");
+        if (input == null) return; // Usuário cancelou
+        input = input.trim();
+        if (input.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a quantidade de entrada.");
+            return;
+        }
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número inteiro.");
+            return;
+        }
+        if (quantidade <= 0) {
+            JOptionPane.showMessageDialog(this, "A quantidade deve ser maior que zero.");
+            return;
+        }
+        int qtdAtual = Integer.parseInt(model.getValueAt(selectedRow, 1).toString());
+        model.setValueAt(qtdAtual + quantidade, selectedRow, 1);
+        JOptionPane.showMessageDialog(this, "Entrada registrada com sucesso!");
+    }
+
+    private void jButtonSaidaActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item na tabela para registrar a saída.");
+            return;
+        }
+        String input = JOptionPane.showInputDialog(this, "Qual a quantidade de saída?");
+        if (input == null) return; // Usuário cancelou
+        input = input.trim();
+        if (input.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a quantidade de saída.");
+            return;
+        }
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantidade deve ser um número inteiro.");
+            return;
+        }
+        if (quantidade <= 0) {
+            JOptionPane.showMessageDialog(this, "A quantidade deve ser maior que zero.");
+            return;
+        }
+        int qtdAtual = Integer.parseInt(model.getValueAt(selectedRow, 1).toString());
+        if (qtdAtual - quantidade < 0) {
+            JOptionPane.showMessageDialog(this, "Saldo insuficiente para saída!");
+            return;
+        }
+        model.setValueAt(qtdAtual - quantidade, selectedRow, 1);
+        JOptionPane.showMessageDialog(this, "Saída registrada com sucesso!");
     }
 }
