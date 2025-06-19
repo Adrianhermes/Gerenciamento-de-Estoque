@@ -1,9 +1,9 @@
 package visao;
 
-import javax.swing.table.DefaultTableModel;
-import java.util.*;
 import dao.ProdutoDAO;
 import modelo.Produto;
+import javax.swing.table.DefaultTableModel;
+import java.util.*;
 
 /**
  * Classe responsável por exibir o formulário de Balanço Físico-Financeiro,
@@ -11,39 +11,19 @@ import modelo.Produto;
  */
 public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
 
-    /** ScrollPane que envolve a tabela de produtos. */
     private javax.swing.JScrollPane jScrollPane1;
-
-    /** Tabela que exibe os produtos com quantidade, valor unitário e total. */
     private javax.swing.JTable tblProdutos;
-
-    /** Rótulo para o campo de valor total do estoque. */
     private javax.swing.JLabel lblTotalEstoque;
-
-    /** Campo de texto que exibe o valor total do estoque. */
     private javax.swing.JTextField txtTotalEstoque;
-
-    /** Botão para atualizar a tabela com os dados. */
     private javax.swing.JButton btnAtualizar;
-
-    /** Botão para voltar ao menu principal. */
     private javax.swing.JButton btnVoltar;
 
-    /**
-     * Construtor da classe FrmBalancoFisicoFinanceiro.
-     * Inicializa os componentes e carrega os produtos de exemplo na tabela.
-     */
     public FrmBalancoFisicoFinanceiro() {
         initComponents();
         carregarProdutosNaTabela(buscarProdutosDoBanco());
     }
 
-    /**
-     * Inicializa os componentes gráficos da tela.
-     * Este método é gerado automaticamente pelo editor de formulários.
-     */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
@@ -114,16 +94,11 @@ public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    /**
-     * Carrega os produtos informados na tabela e calcula o valor total do estoque.
-     *
-     * @param produtos Lista de produtos a ser exibida na tabela.
-     */
     private void carregarProdutosNaTabela(java.util.List<Produto> produtos) {
         produtos.sort(java.util.Comparator.comparing(Produto::getDescricao));
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblProdutos.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
         model.setRowCount(0);
         double totalEstoque = 0.0;
         for (Produto p : produtos) {
@@ -139,23 +114,12 @@ public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
         txtTotalEstoque.setText(String.format("%.2f", totalEstoque));
     }
 
-    /**
-     * Retorna uma lista de produtos de exemplo para exibição na tabela.
-     *
-     * @return Lista de objetos {@link ProdutoExemplo}.
-     */
     private java.util.List<Produto> buscarProdutosDoBanco() {
         ProdutoDAO dao = new ProdutoDAO();
         return dao.read();
     }
 
-    /**
-     * Método principal para execução da aplicação.
-     *
-     * @param args Argumentos da linha de comando (não utilizados).
-     */
     public static void main(String args[]) {
-        /* Configura o tema Nimbus e inicializa a janela */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmBalancoFisicoFinanceiro().setVisible(true);
@@ -163,14 +127,9 @@ public class FrmBalancoFisicoFinanceiro extends javax.swing.JFrame {
         });
     }
 
-    /**
-     * Fecha a tela atual e exibe o menu principal.
-     */
     @Override
     public void dispose() {
         super.dispose();
         new FrmMenuPrincipal().setVisible(true);
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
-}
+} 
